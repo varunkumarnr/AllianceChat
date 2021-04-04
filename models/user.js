@@ -24,6 +24,11 @@ const UserSchema = new Schema({
     type: Boolean,
     default: true,
   },
+  notifications: [{ type: moongoose.Types.ObjectId, ref: "notification" }],
+  unReadNotifications: {
+    type: Number,
+    default: 0,
+  },
 });
 
 module.exports = User = mongoose.model("user", UserSchema);
