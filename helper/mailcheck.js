@@ -4,7 +4,9 @@
 const mailChecker = (email) => {
   if (email) {
     arr = email.split(/[.@]+/);
+    console.log(arr);
     for (i = 0; i < arr.length; i++) {
+      console.log(arr[i]);
       if (arr[i] == "alliance") {
         return true;
       }
@@ -15,4 +17,4 @@ const mailChecker = (email) => {
   }
 };
 
-// console.log(mailChecker("kvarun.btech18@alliance.edu.in"));
+console.log(mailChecker("kvarun.btech18@alliance.edu.in"));

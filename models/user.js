@@ -21,6 +21,10 @@ const UserSchema = new Schema({
     required: true,
     unique: true,
   },
+  img: {},
+  cover: {
+    type: String,
+  },
   socketId: {
     type: String,
     default: "",
@@ -29,7 +33,10 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  notifications: [{ type: moongoose.Types.ObjectId, ref: "notification" }],
+  publicId: {
+    type: String,
+  },
+  notifications: [{ type: mongoose.Types.ObjectId, ref: "notification" }],
   unReadNotifications: {
     type: Number,
     default: 0,
