@@ -2,7 +2,7 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cloudinary = require("cloudinary");
-const emailCheck = require("../helper/mailcheck");
+const mailChecker = require("../helper/mailcheck");
 const { validationResult } = require("express-validator");
 
 const signUp = async (req, res) => {
@@ -11,16 +11,23 @@ const signUp = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
+  const { name, email, password, username } = req.body;
+  let valid = true;
   try {
-    if (emailCheck(email) === false) {
+    if (mailChecker(email) === false) {
+      valid = false;
     }
   } catch (err) {
     return res
-      .status(422)
+      .status(400)
+      .json({ errors: [{ msg: "enter vaild alliance mail id " }] });
+  }
+  if (valid === false) {
+    return res
+      .status(400)
       .json({ errors: [{ msg: "enter vaild alliance mail id" }] });
   }
 
-  const { name, email, password, username } = req.body;
   let existingUser;
   try {
     existingUser = await User.findOne({
