@@ -17,4 +17,12 @@ router.get(
   ],
   userController.signUp
 );
+router.get(
+  "/login",
+  [
+    check("email", "enter a valid email").isEmail(),
+    check("password", "enter password").isLength({ min: 6 }),
+  ],
+  userController.Login
+);
 module.exports = router;
