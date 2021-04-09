@@ -1,10 +1,11 @@
 const express = require("express");
 const { check } = require("express-validator");
 const router = express.Router();
+const auth = require("../middlewares/auth");
 const userController = require("../controllers/user-controller");
-router.get("/", (req, res) => {
-  res.send("user route");
-});
+// router.get("/", (req, res) => {
+//   res.send("user route");
+// });
 router.get(
   "/signup",
   [
@@ -25,4 +26,6 @@ router.get(
   ],
   userController.Login
 );
+router.get("/:id", userController.getUser);
+router.get("/", userController.getUsers);
 module.exports = router;

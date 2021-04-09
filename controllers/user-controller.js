@@ -6,6 +6,7 @@ const mailChecker = require("../helper/mailcheck");
 const { validationResult } = require("express-validator");
 const config = require("config");
 const user = require("../models/user");
+const { findById } = require("../models/user");
 
 //User Sign in Controller
 const signUp = async (req, res) => {
@@ -111,12 +112,12 @@ const Login = async (req, res) => {
   try {
     existingUser = await User.findOne({ email: email });
   } catch (err) {
-    res
+    return res
       .status(500)
       .json({ errors: [{ msg: "Login failed please try again" }] });
   }
   if (!existingUser) {
-    res
+    return res
       .status(500)
       .json({ errors: [{ msg: "Email does not exist please login" }] });
   }
@@ -124,12 +125,12 @@ const Login = async (req, res) => {
   try {
     validPassword = await bcrypt.compare(password, existingUser.password);
   } catch (err) {
-    res
+    return res
       .status(500)
       .json({ errors: [{ msg: "Invalid credentials, could not log in" }] });
   }
   if (!validPassword) {
-    res
+    return res
       .status(500)
       .json({ errors: [{ msg: "Invalid credentials, could not log in" }] });
   }
@@ -148,7 +149,73 @@ const Login = async (req, res) => {
     }
   );
 };
+const getUser = async (req, res) => {
+  const uid = req.params.id;
+  // console.log(req.query.skip);
+  if (req.query.skip === undefined) {
+    let user;
+    try {
+      user = await User.findById(uid, "-password");
+    } catch (err) {
+      console.log(err.message);
+      return res
+        .status(500)
+        .json({ errors: [{ msg: "An errror occured, please try again" }] });
+    }
+    if (!user) {
+      res.status(500).json({ errors: [{ msg: "User not found" }] });
+    }
+    res.json(user);
+  } else {
+  }
+};
+
+const getUsers = async (req, res) => {
+  const { q, skip, limit, id } = req.query;
+  let users, length;
+  if (limit) {
+    try {
+      users = await User.find({
+        username: { $regex: q },
+        _id: { $ne: id },
+      })
+        .select("username _id")
+        .limit(7);
+    } catch (err) {
+      console.log(err.message);
+      return res.status(500).json({
+        errros: [{ msg: "Fetching users failed, please try again" }],
+      });
+    }
+    res.json({
+      users: users.map((user) => {
+        return {
+          label: user.name,
+          value: user._id,
+        };
+      }),
+    });
+  } else {
+    try {
+      length = await User.find(
+        { username: { $regex: q } },
+        "-password"
+      ).countDocuments();
+      users = await User.find({ username: { $regex: q } }, "-password")
+        .skip(parseInt(skip))
+        .limit(5);
+    } catch (err) {
+      console.log(err.message);
+      return res.status(500).json({
+        errors: [{ msg: "Fetching users failed, please try again" }],
+      });
+    }
+    res.json({ users, length });
+  }
+};
 module.exports = {
   signUp,
   Login,
+  getUser,
+  getUsers,
 };
