@@ -6,7 +6,6 @@ const mailChecker = require("../helper/mailcheck");
 const { validationResult } = require("express-validator");
 const config = require("config");
 const user = require("../models/user");
-const { findById } = require("../models/user");
 
 //User Sign in Controller
 const signUp = async (req, res) => {
@@ -213,9 +212,55 @@ const getUsers = async (req, res) => {
     res.json({ users, length });
   }
 };
+const changePassword = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(500).json({
+      errors: [{ msg: "Invalid inputs, please check your Input" }],
+    });
+  }
+  const { oldPassword, newPassword, confirmPassword } = req.body;
+  id = req.params.id;
+  if (newPassword !== confirmPassword) {
+    return res.status(422).json({
+      errors: [{ msg: "New password should be same as confirm password" }],
+    });
+  }
+  let validPassword, newHashedPassword, user;
+  try {
+    user = await User.findById(id);
+  } catch (err) {
+    return res
+      .status(422)
+      .json({ errors: [{ msg: "Something went wrong, please try again" }] });
+  }
+  if (!user) {
+    return res
+      .status(422)
+      .json({ errors: [{ msg: "No such user, please try to sign in again" }] });
+  }
+  try {
+    validPassword = await bcrypt.compare(oldPassword, user.password);
+    const salt = await bcrypt.genSalt(10);
+    newHashedPassword = await bcrypt.hash(newPassword, salt);
+  } catch (err) {
+    return res.status(422).json({ errors: [{ msg: "Server error" }] });
+  }
+  if (!validPassword) {
+    return res.status(422).json({ errors: [{ msg: "Check your password" }] });
+  }
+  try {
+    user.password = newHashedPassword;
+    await user.save();
+  } catch (err) {
+    return status(422).json({ errors: [{ msg: "server error" }] });
+  }
+  res.json({ message: "success" });
+};
 module.exports = {
   signUp,
   Login,
   getUser,
   getUsers,
+  changePassword,
 };

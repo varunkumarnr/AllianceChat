@@ -26,6 +26,15 @@ router.get(
   ],
   userController.Login
 );
+router.get(
+  "/changepassword/:id",
+  [
+    check("oldPassword").isLength({ min: 6 }),
+    check("newPassword").isLength({ min: 6 }),
+    check("confirmPassword").isLength({ min: 6 }),
+  ],
+  userController.changePassword
+);
 router.get("/:id", userController.getUser);
 router.get("/", userController.getUsers);
 module.exports = router;
