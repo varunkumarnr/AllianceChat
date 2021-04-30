@@ -61,7 +61,6 @@ const signUp = async (req, res) => {
     "https://res.cloudinary.com/varunnrk/image/upload/v1617635407/Alliance%20chat/pic3_x0kjks.jpg",
     "https://res.cloudinary.com/varunnrk/image/upload/v1617635408/Alliance%20chat/pic4_vty8zj.jpg",
     "https://res.cloudinary.com/varunnrk/image/upload/v1617635408/Alliance%20chat/pic5_dxjeha.jpg",
-    "",
   ];
   const RandomNo = Math.floor(Math.random() * 5);
   const createdUser = new User({
