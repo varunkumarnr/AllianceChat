@@ -33,3 +33,6 @@
 .btn--contained2-primary:hover {
   transform: translateY(-1px);
 }
+.mg-none {
+  margin: 0 !important;
+}
