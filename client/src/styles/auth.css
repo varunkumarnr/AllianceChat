@@ -1,0 +1,107 @@
+.form {
+  /* width: 100%; */
+}
+.form__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.form__heading {
+  margin-bottom: 2rem;
+}
+h3 {
+  color: white;
+  font-size: 3.7rem;
+  font-weight: 700;
+  font-family: "Montserrat";
+  line-height: 1.13;
+  text-transform: capitalize;
+}
+.form__error {
+  color: #bf212e;
+  font-size: 1.4rem;
+  text-transform: capitalize;
+  margin-top: 0.7rem;
+  margin-left: 1rem;
+}
+.form__body {
+  width: 40rem;
+  border-radius: 2rem;
+  padding: 2rem 3rem 3.4rem 3rem;
+  background: var(--second);
+  position: relative;
+}
+.port {
+  padding-top: 4rem;
+}
+.big {
+  width: 100%;
+}
+.form__control {
+  margin: 1rem 0 2rem 0;
+}
+.form__unit {
+  position: relative;
+  border-radius: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+.form__label {
+  position: absolute;
+  top: 50%;
+  left: 2rem;
+  transform: translateY(-50%);
+  color: #8c8c8c;
+  font-size: 1.6rem;
+  text-transform: capitalize;
+  transition: font 0.1s ease, top 0.1s ease, transform 0.1s ease,
+    -webkit-transform 0.1s ease, -moz-transform 0.1s ease,
+    -o-transform 0.1s ease;
+  pointer-events: none;
+}
+
+.form__input {
+  padding: 1.6rem 2rem 0;
+  width: 100%;
+  background: #333;
+  border: none;
+  outline: none;
+  color: #fff;
+  line-height: 5rem;
+  height: 5rem;
+  border-radius: 0.4rem;
+  border: 2px solid transparent;
+  transition: all 0.3s;
+}
+.form__input:focus {
+  background: #454545;
+  border-color: var(--primary);
+}
+.form__input:focus ~ .form__label {
+  font-size: 1.2rem;
+  transform: translateY(0);
+  top: 0.7rem;
+}
+.form__else {
+  margin: 1rem auto;
+}
+.form__else > p {
+  font-family: "lato";
+  font-size: 1.4rem;
+  text-transform: capitalize;
+  color: var(--text-color);
+  text-align: center;
+}
+.form__else > p > a {
+  color: var(--info);
+}
+.form__else > p > a:hover {
+  color: var(--link);
+}
+.error-message {
+}
+.message {
+  border: 1px solid var(--headBg);
+  font-size: 2rem;
+  color: var(--headCl);
+}

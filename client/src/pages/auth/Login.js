@@ -1,6 +1,8 @@
 import React from "react";
 import { EmailText } from "../../shared/inputs/EmailText";
 import { PasswordText } from "../../shared/inputs/PasswordText";
+import "../../styles/auth.css";
+import "../../styles/button.css";
 export const Login = () => {
   return (
     <div className='form__container screen'>
@@ -10,14 +12,15 @@ export const Login = () => {
       <div className='form'>
         <form className='form__body port'>
           <div className='error-message'>
-            <div className='message'>error</div>
+            <div className='message'></div>
           </div>
           <EmailText />
           <PasswordText />
+          <button className='btn btn--contained2-primary mg-none'>Login</button>
+          <div className='form__else'>
+            <p>don't have an account</p>
+          </div>
         </form>
-        <div className='form_else'>
-          <p>don't have an account</p>
-        </div>
       </div>
     </div>
   );

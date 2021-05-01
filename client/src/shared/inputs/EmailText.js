@@ -11,6 +11,9 @@ export const EmailText = () => {
           placeholder=''
           autoComplete='off'
         ></input>
+        <label for='email' className='form__label'>
+          email
+        </label>
       </div>
     </div>
   );

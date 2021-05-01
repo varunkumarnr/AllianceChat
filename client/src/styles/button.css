@@ -1,0 +1,35 @@
+.btn {
+  margin: 0.8rem;
+  border-radius: 4px;
+  letter-spacing: 0.05857em;
+  font-family: "Roboto", sans-serif;
+  background: transparent;
+  position: relative;
+  /* max-width: 64px; */
+  padding: 0.8rem 1rem;
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: 0.0198;
+  text-transform: uppercase;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  cursor: pointer;
+}
+.btn--contained2-primary {
+  display: block;
+  background: var(--gradient);
+  border: none;
+  height: 5rem;
+  width: 100%;
+  color: white;
+  border-radius: 0.4rem;
+  outline: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 4rem;
+}
+.btn--contained2-primary:hover {
+  transform: translateY(-1px);
+}

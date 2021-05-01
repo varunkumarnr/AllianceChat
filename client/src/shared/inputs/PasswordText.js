@@ -10,7 +10,10 @@ export const PasswordText = () => {
           className='form__input'
           placeholder=''
           autoComplete='off'
-        ></input>
+        />
+        <label for='password' className='form__label'>
+          Password
+        </label>
       </div>
     </div>
   );
