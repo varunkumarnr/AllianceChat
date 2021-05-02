@@ -1,6 +1,6 @@
 import React from "react";
 
-export const EmailText = () => {
+export const EmailText = ({ register, errors }) => {
   return (
     <div className='form__control'>
       <div className='form__unit'>
@@ -15,6 +15,7 @@ export const EmailText = () => {
           email
         </label>
       </div>
+      {errors && <div className='form__error'>invalid Email</div>}
     </div>
   );
 };
